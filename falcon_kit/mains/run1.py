@@ -411,10 +411,10 @@ def run(wf, config,
     merge_tasks, merge_out, _ = create_merge_tasks(pread_dir, scattered_plf)
     wf.addTasks(merge_tasks)
 
-    p_merge_done = makePypeLocalFile(os.path.join( pread_dir, 'preads-merge', 'p_merge_done'))
+    p_merge_gathered = makePypeLocalFile(os.path.join( pread_dir, 'preads-merge', 'p_merge_gathered'))
 
     make_check_p_merge_task = PypeTask( inputs = merge_out,
-               outputs =  {"p_merge_done": p_merge_done},
+               outputs =  {"p_merge_gathered": p_merge_gathered},
                TaskType = MyFakePypeThreadTaskBase,
                URL = "task://localhost/pmerge_check" )
     wf.addTask(make_check_p_merge_task(pype_tasks.check_p_merge_check_task))
@@ -429,7 +429,7 @@ def run(wf, config,
     db2falcon_done = makePypeLocalFile(os.path.join(db2falcon_dir, 'db2falcon_done'))
     preads4falcon_plf = makePypeLocalFile(os.path.join(db2falcon_dir, 'preads4falcon.fasta'))
     make_run_db2falcon = PypeTask(
-               inputs = {"p_merge_done": p_merge_done,
+               inputs = {"p_merge_gathered": p_merge_gathered,
                          "preads_db": preads_db,
                         },
                outputs =  {"db2falcon_done": db2falcon_done,

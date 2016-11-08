@@ -88,7 +88,7 @@ def task_build_pdb(self):  #essential the same as build_rdb() but the subtle dif
 def task_run_db2falcon(self):
     wd = self.parameters["wd"]
     mkdir(wd)
-    #self.p_merge_done
+    #self.p_merge_gathered
     job_done = fn(self.db2falcon_done)
     preads4falcon_fn = fn(self.preads4falcon)
     preads_db = fn(self.preads_db)
